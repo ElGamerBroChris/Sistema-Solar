@@ -46,7 +46,8 @@ Scene.prototype.render = function() {
 
 function initScene()
 {
-	var obj1 =new SaturnGL();
+	var obj1 =new SystemGL();
+	//obj1.translate(10,0,0);
 	scene = new Scene();
 	scene.add(obj1);
 }

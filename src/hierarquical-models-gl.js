@@ -172,8 +172,8 @@ EarthGL.prototype.setDrawingMode = function(mode) {
 									};
 
 EarthGL.prototype.translate = function(tx,ty,tz) {
-	this.sphere.translate(tx,ty,tz);
-	this.moon.translate(tx,ty,tz);
+	this.sphere.translate(-tx,ty,tz);
+	this.moon.translate(4*tx,4*ty,4*tz);
 };
 
 function MarsGL()
@@ -182,7 +182,7 @@ function MarsGL()
 	this.fobos=new MoonGL();
 	this.demos=new MoonGL();
 	this.fobos.translate(2.5,0,0);
-	this.demos.translate(4,0,0);
+	this.demos.translate(0,2.5,0);
 	this.sphere.scale(0.05,0.05,0.05);
 	this.sphere.setDrawingMode(TEXTURE);
 	this.sphere.setTexture("../imgs/mars.jpg");
@@ -202,9 +202,9 @@ MarsGL.prototype.setDrawingMode = function(mode) {
 									};
 
 MarsGL.prototype.translate = function(tx,ty,tz) {
-	this.sphere.translate(tx,ty,tz);
-	this.fobos.translate(tx,ty,tz);
-	this.demos.translate(tx,ty,tz);
+	this.sphere.translate(-tx,ty,tz);
+	this.fobos.translate(2*tx,2*ty,2*tz);
+	this.demos.translate(2*tx,2*ty,2*tz);
 };
 
 function JupiterGL()
@@ -241,7 +241,7 @@ JupiterGL.prototype.setDrawingMode = function(mode) {
 									};
 
 JupiterGL.prototype.translate = function(tx,ty,tz) {
-	this.sphere.translate(tx,ty,tz);
+	this.sphere.translate(-tx/20,ty/20,tz/20);
 	this.Io.translate(tx,ty,tz);
 	this.Europa.translate(tx,ty,tz);
 	this.Ganimedes.translate(tx,ty,tz);
@@ -284,7 +284,7 @@ UranusGL.prototype.setDrawingMode = function(mode) {
 									};
 
 UranusGL.prototype.translate = function(tx,ty,tz) {
-	this.sphere.translate(tx,ty,tz);
+	this.sphere.translate(tx/9,ty/9,tz/9);
 	this.Miranda.translate(tx,ty,tz);
 	this.Ariel.translate(tx,ty,tz);
 	this.Umbriel.translate(tx,ty,tz);
@@ -384,5 +384,54 @@ SaturnGL.prototype.setDrawingMode = function(mode) {
 										this.sphere.setDrawingMode(mode);
 									};
 SaturnGL.prototype.translate = function(tx,ty,tz) {
-	this.sphere.translate(tx,ty,tz);
+	this.sphere.translate(2*tx,2*ty,2*tz);
+	this.ring.translate(tx,ty,tz);
 };
+
+function SystemGL()
+{
+	this.sun=new SunGL();
+	this.sun.translate(-2.5,0,0);
+
+	this.mercury=new MercuryGL();
+	this.mercury.translate(-35,0,0);
+
+	this.venus=new VenusGL();
+	this.venus.translate(-16,0,0);
+
+	this.earth=new EarthGL();
+	this.earth.translate(-14.5,0,0);
+
+	this.mars=new MarsGL();
+	this.mars.translate(-25,0,0);
+
+	this.jupiter=new JupiterGL();
+	this.jupiter.translate(-33,0,0);
+
+	this.saturn=new SaturnGL();
+
+	this.uranus=new UranusGL();
+	this.uranus.translate(22,0,0);
+
+	this.neptune=new NeptuneGL();
+	this.neptune.translate(4,0,0);
+
+	ObjectGL.call(this);
+}
+SystemGL.prototype = Object.create(ObjectGL.prototype);
+
+SystemGL.prototype.render = function() {
+							this.sun.render();
+							this.mercury.render();
+							this.venus.render();
+							this.earth.render();
+							this.mars.render();
+							this.jupiter.render();
+							this.saturn.render();
+							this.uranus.render();
+							this.neptune.render();
+						};
+
+SystemGL.prototype.setDrawingMode = function(mode) {
+										this.sphere.setDrawingMode(mode);
+									};
